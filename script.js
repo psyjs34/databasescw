@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
-    document.getElementById('searchForm2').addEventListener('submit', async function(e) {
+    document.getElementById('submitbutton2').addEventListener('click', async function(e) {
         e.preventDefault(); // Prevent the default form submission behavior
         
         const searchResults = document.querySelectorAll('.searchresult');
