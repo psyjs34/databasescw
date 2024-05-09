@@ -8,22 +8,27 @@ document.addEventListener('DOMContentLoaded', function() {
         .from('People')
         .select()
         .ilike('Name', inputData); // Fixed variable name here
-        produceOutput(data);
+        if (error) {
+            console.error('Error fetching data:', error.message);
+        }
+        else{
+            produceOutput(data);
+        }
     }
     async function fetchDataLicense(inputData) {
         const { data, error } = await supabase
         .from('People')
         .select()
         .ilike('LicenseNumber', inputData); // Fixed variable name here
-        produceOutput(data);
+        if (error) {
+            console.error('Error fetching data:', error.message);
+        }
+        else{
+            produceOutput(data);
+        }
     }
 
     async function produceOutput(data){
-        if (error) {
-            console.error('Error fetching data:', error.message);
-            return;
-        }
-        else {
             if (data.length === 0) {
                 document.getElementById('message').innerText = 'No result found';
                 return;
@@ -49,11 +54,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Append the new div to the results container
                 document.getElementById('results').appendChild(newDiv);
             });
-        }
     }
 
     document.getElementById('searchForm').addEventListener('submit', async function(e) {
-        event.preventDefault(); // Prevent the default form submission behavior
+        e.preventDefault(); // Prevent the default form submission behavior
         
         // Get input values
         var nameInput = document.getElementById('name').value.trim();
