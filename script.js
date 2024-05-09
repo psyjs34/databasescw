@@ -2,6 +2,8 @@ import { createClient } from
 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 const supabase = createClient('https://olezxgvjwaapmpvuuxhx.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9sZXp4Z3Zqd2FhcG1wdnV1eGh4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTUyNjQ0ODEsImV4cCI6MjAzMDg0MDQ4MX0.QhebJQ6x66GSbZ9xK4LHU32R-zLAwdd_KCBYInZlfys');
 
+document.addEventListener('DOMContentLoaded', function() {
+
 function peoplesearchsubmit() {
     // Get input values
     var nameInput = ''
@@ -72,3 +74,7 @@ async function processData(data) {
         document.getElementById('results').appendChild(newDiv);
     });
 }
+
+const submitButton = document.getElementById('submitbutton');
+    submitButton.addEventListener('click', peoplesearchsubmit);
+});
