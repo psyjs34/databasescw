@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const { data, error } = await supabase
         .from('People')
         .select()
-        .ilike('Name', inputData); // Fixed variable name here
+        .ilike('Name', `%${inputData}%`); // Fixed variable name here
         if (error) {
             console.error('Error fetching data:', error.message);
         }
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const { data, error } = await supabase
         .from('People')
         .select()
-        .ilike('LicenseNumber', inputData); // Fixed variable name here
+        .ilike('LicenseNumber', `%${inputData}%`); // Fixed variable name here
         if (error) {
             console.error('Error fetching data:', error.message);
         }
