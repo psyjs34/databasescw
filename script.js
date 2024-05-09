@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    document.getElementById('searchForm').addEventListener('submit', function(event) {
+    document.getElementById('searchForm').addEventListener('submit', async function(e) {
         event.preventDefault(); // Prevent the default form submission behavior
         
         // Get input values
