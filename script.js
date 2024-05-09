@@ -79,6 +79,55 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    async function fetchDataRego(inputData) {
+        const { data, error } = await supabase
+        .from('Vehicle')
+        .select()
+        .eq('VehicleID', `%${inputData}%`); // Fixed variable name here
+        if (error) {
+            console.error('Error fetching data:', error.message);
+        }
+        else{
+            if (data.length === 0) {
+                document.getElementById('message').innerText = 'No result found';
+                return;
+            }
+    
+            // Clear previous results
+            document.getElementById('message').innerText = 'Search successful';
+    
+            for (var i = 0; i < data.length; i++) {
+                // Create a new div for each row
+                const { data2, error } = await supabase
+                .from('People')
+                .select()
+                .eq('PersonID', data[i].OwnerID); // Fixed variable name here
+                ownername = data2[0].Name;
+                ownerlicense = data2[0].LicenseNumber;
+                const newDiv = document.createElement('div');
+                newDiv.classList.add('searchresult');
+            
+                // Create paragraphs for each column
+                const columns = ['vehicleid', 'make', 'model', 'colour', 'ownerid'];
+                const columnsVars = ['VehicleID', 'Make', 'Model', 'Colour', 'OwnerID'];
+                columns.forEach((column, index) => {
+                    var element = data[i][columnsVars[index]]; // Access each attribute using bracket notation
+                    const p = document.createElement('p');
+                    p.innerHTML = `<strong>${column}: </strong>${element}`;
+                    newDiv.appendChild(p);
+                });
+                p.innerHTML = `<strong>ownername: </strong>${ownername}`;
+                newDiv.appendChild(p);
+                const p = document.createElement('p');
+                p.innerHTML = `<strong>$ownerlicensenumber: </strong>${ownerlicense}`;
+                newDiv.appendChild(p);
+            
+                // Append the new div to the results container
+                document.getElementById('results').appendChild(newDiv);
+            }
+        }
+    }
+
     document.getElementById('searchForm').addEventListener('submit', async function(e) {
         e.preventDefault(); // Prevent the default form submission behavior
         
@@ -88,7 +137,6 @@ document.addEventListener('DOMContentLoaded', function() {
         searchResults.forEach(element => {
             element.style.display = 'none';
         });
-
         // Get input values
         var nameInput = document.getElementById('name').value.trim();
         var licenseInput = document.getElementById('license').value.trim();
@@ -111,6 +159,32 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             else {
                 fetchDataLicense(licenseInput);
+            }
+        }
+    });
+    document.getElementById('searchForm2').addEventListener('submit', async function(e) {
+        e.preventDefault(); // Prevent the default form submission behavior
+        
+        const searchResults = document.querySelectorAll('.searchresult');
+
+        // Loop through each element and set its display to 'none'
+        searchResults.forEach(element => {
+            element.style.display = 'none';
+        });
+        // Get input values
+        var regoInput = document.getElementById('rego').value.trim();
+
+        // Get message div
+        var messageDiv = document.getElementById('message');
+        
+        // Check if both fields are empty
+        if (rego === '') {
+            messageDiv.textContent = 'Error, field empty';
+        }
+        // Search database if only one input
+        else {
+            if (nameInput !== ''){
+                fetchDataRego(regoInput);
             }
         }
     });
