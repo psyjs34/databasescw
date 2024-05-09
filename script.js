@@ -78,7 +78,7 @@ const supabase = createClient('https://olezxgvjwaapmpvuuxhx.supabase.co', 'eyJhb
 
     async function fetchDataRego(inputData) {
         const { data, error } = await supabase
-        .from('Vehicle')
+        .from('Vehicles')
         .select()
         .eq('VehicleID', `%${inputData}%`); // Fixed variable name here
         if (error) {
