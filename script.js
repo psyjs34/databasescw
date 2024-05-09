@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const { data, error } = await supabase
         .from('People')
         .select()
-        .eq(input, inputData); // Fixed variable name here
+        .ilike(input, inputData); // Fixed variable name here
         if (error) {
             console.error('Error fetching data:', error.message);
             return;
