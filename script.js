@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
             for (var i = 0; i < data.length; i++) {
                 // Create a new div for each row
                 const newDiv = document.createElement('div');
-                newDiv.classList.add('box');
+                newDiv.classList.add('searchresult');
             
                 // Create paragraphs for each column
                 const columns = ['personid', 'name', 'address', 'dob', 'licensenumber', 'expirydate'];
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const { data, error } = await supabase
         .from('People')
         .select()
-        .ilike('LicenseNumber', `%${inputData}%`); // Fixed variable name here
+        .eq('LicenseNumber', `%${inputData}%`); // Fixed variable name here
         if (error) {
             console.error('Error fetching data:', error.message);
         }
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
             for (var i = 0; i < data.length; i++) {
                 // Create a new div for each row
                 const newDiv = document.createElement('div');
-                newDiv.classList.add('box');
+                newDiv.classList.add('searchresult');
             
                 // Create paragraphs for each column
                 const columns = ['personid', 'name', 'address', 'dob', 'licensenumber', 'expirydate'];
@@ -82,6 +82,13 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('searchForm').addEventListener('submit', async function(e) {
         e.preventDefault(); // Prevent the default form submission behavior
         
+        const searchResults = document.querySelectorAll('.searchresult');
+
+        // Loop through each element and set its display to 'none'
+        searchResults.forEach(element => {
+            element.style.display = 'none';
+        });
+
         // Get input values
         var nameInput = document.getElementById('name').value.trim();
         var licenseInput = document.getElementById('license').value.trim();
