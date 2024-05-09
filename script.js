@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const columns = ['personid', 'name', 'address', 'dob', 'licensenumber', 'expirydate'];
                 columns.forEach(column => {
                     const p = document.createElement('p');
-                    p.innerHTML = `<strong>${column}: </strong>${row[column]}`;
+                    p.innerHTML = `<strong>${column}: </strong>${data[row].column}`;
                     newDiv.appendChild(p);
                 });
     
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const columns = ['personid', 'name', 'address', 'dob', 'licensenumber', 'expirydate'];
                 columns.forEach(column => {
                     const p = document.createElement('p');
-                    p.innerHTML = `<strong>${column}: </strong>${row[column]}`;
+                    p.innerHTML = `<strong>${column}: </strong>${data[row].column}`;
                     newDiv.appendChild(p);
                 });
     
