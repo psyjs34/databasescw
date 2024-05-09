@@ -20,7 +20,7 @@ function peoplesearchsubmit() {
     else if (nameInput !== '' && licenseInput !== '') {
         messageDiv.textContent = 'Error, you can only search one attribute at a time';
     }
-    // Clear message if any one field is filled
+    // Search database if only one input
     else {
         if (nameInput !== ''){
             fetchData(licenseInput);
