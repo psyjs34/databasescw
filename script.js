@@ -162,28 +162,30 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
-    document.getElementById('submitbutton2').addEventListener('click', async function(e) {
-        e.preventDefault(); // Prevent the default form submission behavior
-        
-        const searchResults = document.querySelectorAll('.searchresult');
+    // Vehicle Search Listener
+document.getElementById('searchForm2').addEventListener('submit', async function(e) {
+    e.preventDefault(); // Prevent the default form submission behavior
+    
+    const searchResults = document.querySelectorAll('.searchresult');
 
-        // Loop through each element and set its display to 'none'
-        searchResults.forEach(element => {
-            element.style.display = 'none';
-        });
-        // Get input values
-        var regoInput = document.getElementById('rego').value.trim();
-
-        // Get message div
-        var messageDiv = document.getElementById('message2');
-        
-        // Check if both fields are empty
-        if (rego === '') {
-            messageDiv.textContent = 'Error, field empty';
-        }
-        // Search database if only one input
-        else {
-            fetchDataRego(regoInput);
-        }
+    // Loop through each element and set its display to 'none'
+    searchResults.forEach(element => {
+        element.style.display = 'none';
     });
+    // Get input values
+    var regoInput = document.getElementById('rego').value.trim();
+
+    // Get message div
+    var messageDiv = document.getElementById('message2');
+    
+    // Check if both fields are empty
+    if (regoInput === '') { // <-- Fixed condition to use regoInput
+        messageDiv.textContent = 'Error, field empty';
+    }
+    // Search database if only one input
+    else {
+        fetchDataRego(regoInput);
+    }
+});
+
 });
