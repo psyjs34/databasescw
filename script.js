@@ -4,35 +4,6 @@ const supabase = createClient('https://olezxgvjwaapmpvuuxhx.supabase.co', 'eyJhb
 
 document.addEventListener('DOMContentLoaded', function() {
 
-function peoplesearchsubmit() {
-    // Get input values
-    var nameInput = ''
-    var licenseInput = ''
-    nameInput = document.getElementById('name').value.trim();
-    licenseInput = document.getElementById('license').value.trim();
-
-    // Get message div
-    var messageDiv = document.getElementById('message');
-
-    // Check if both fields are empty
-    if (nameInput === '' && licenseInput === '') {
-        messageDiv.textContent = 'Error, both fields empty';
-    }
-    // Check if both fields are filled
-    else if (nameInput !== '' && licenseInput !== '') {
-        messageDiv.textContent = 'Error, you can only search one attribute at a time';
-    }
-    // Search database if only one input
-    else {
-        if (nameInput !== ''){
-            fetchData(licenseInput);
-        }
-        else{
-            fetchData(nameInput);
-        }
-    }
-}
-
 async function fetchData(Inputdata) {    
     const { data, error } = await supabase
     .from('People')
@@ -74,7 +45,38 @@ async function processData(data) {
         document.getElementById('results').appendChild(newDiv);
     });
 }
+document.getElementById('searchForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission behavior
+    
+    // Get input values
+    var nameInput = document.getElementById('name').value.trim();
+    var licenseInput = document.getElementById('license').value.trim();
 
-const submitButton = document.getElementById('submitbutton');
-    submitButton.addEventListener('click', peoplesearchsubmit);
+    // Your further processing logic here...
+    var nameInput = ''
+    var licenseInput = ''
+    nameInput = document.getElementById('name').value.trim();
+    licenseInput = document.getElementById('license').value.trim();
+
+    // Get message div
+    var messageDiv = document.getElementById('message');
+
+    // Check if both fields are empty
+    if (nameInput === '' && licenseInput === '') {
+        messageDiv.textContent = 'Error, both fields empty';
+    }
+    // Check if both fields are filled
+    else if (nameInput !== '' && licenseInput !== '') {
+        messageDiv.textContent = 'Error, you can only search one attribute at a time';
+    }
+    // Search database if only one input
+    else {
+        if (nameInput !== ''){
+            fetchData(licenseInput);
+        }
+        else{
+            fetchData(nameInput);
+        }
+    }
+});
 });
