@@ -1,0 +1,114 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+#results {
+    padding: 10px;
+    margin: 10px;
+    border: 2px dashed black;
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+#container {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 1fr 4fr;
+  min-height: 100vh;
+}
+.mainupper{
+    background-color: white;
+}
+
+#newOwnerForm{
+    display: none;
+}
+
+.imgcontainer {
+    width: 100%;
+}
+
+.imgcontainer img {
+    max-width: 100%; 
+    height: auto;
+    display: block;
+}
+
+header, footer {
+  grid-column: 1 / -1;
+  text-align: center;
+}
+.box{
+    border: 1px solid black;
+    padding: 10px;
+    margin: 5px;
+    max-width: 200px;
+}
+
+footer, header, aside, main {
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px;
+}
+
+footer {
+  grid-row: 3; /* Place the footer in the third row */
+}
+
+aside {
+  grid-row: 2; /* Place the sidebar in the second row */
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+  grid-row: 2; /* Place the main content in the second row */
+  grid-column: 2; /* Place the main content in the second column */
+}
+
+.navigation {
+    padding: 10px;
+    margin: 0;
+    display: flex;
+    justify-content: space-around;;
+}
+
+.navigation li {
+    margin: 0 10px;
+}
+
+.navigation a:hover {
+    text-decoration: underline;
+}
+
+ul.navigation {
+    list-style-type: none;
+}
+
+@media (max-width: 500px) {
+    .navigation {
+        display: flex;
+        flex-direction: column;
+    }
+    aside {
+      grid-row: 3; /* Place the sidebar in the second row */
+    }
+    footer {
+      grid-column: 2;
+    }
+    main {
+      grid-column: 1 / -1;
+    }
+    
+}
