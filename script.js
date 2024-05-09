@@ -89,12 +89,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         else{
             if (data.length === 0) {
-                document.getElementById('message').innerText = 'No result found';
+                document.getElementById('message2').innerText = 'No result found';
                 return;
             }
     
             // Clear previous results
-            document.getElementById('message').innerText = 'Search successful';
+            document.getElementById('message2').innerText = 'Search successful';
     
             for (var i = 0; i < data.length; i++) {
                 // Create a new div for each row
@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var regoInput = document.getElementById('rego').value.trim();
 
         // Get message div
-        var messageDiv = document.getElementById('message');
+        var messageDiv = document.getElementById('message2');
         
         // Check if both fields are empty
         if (rego === '') {
