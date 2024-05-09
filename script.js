@@ -99,8 +99,6 @@ const supabase = createClient('https://olezxgvjwaapmpvuuxhx.supabase.co', 'eyJhb
                 .from('People')
                 .select()
                 .eq('PersonID', data[i].OwnerID); // Fixed variable name here
-                ownername = data2[0].Name;
-                ownerlicense = data2[0].LicenseNumber;
                 const newDiv = document.createElement('div');
                 newDiv.classList.add('searchresult');
             
@@ -113,10 +111,14 @@ const supabase = createClient('https://olezxgvjwaapmpvuuxhx.supabase.co', 'eyJhb
                     p.innerHTML = `<strong>${column}: </strong>${element}`;
                     newDiv.appendChild(p);
                 });
-                p.innerHTML = `<strong>ownername: </strong>${ownername}`;
-                newDiv.appendChild(p);
-                const p = document.createElement('p');
-                p.innerHTML = `<strong>$ownerlicensenumber: </strong>${ownerlicense}`;
+                if(data2.length !== 0){
+                    ownername = data2[0].Name;
+                    ownerlicense = data2[0].LicenseNumber;
+                    p.innerHTML = `<strong>ownername: </strong>${ownername}`;
+                    newDiv.appendChild(p);
+                    const p = document.createElement('p');
+                    p.innerHTML = `<strong>$ownerlicensenumber: </strong>${ownerlicense}`;
+                }
                 newDiv.appendChild(p);
             
                 // Append the new div to the results container
