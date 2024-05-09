@@ -127,66 +127,73 @@ const supabase = createClient('https://olezxgvjwaapmpvuuxhx.supabase.co', 'eyJhb
 
 document.addEventListener('DOMContentLoaded', function() {
 
-    document.getElementById('searchForm').addEventListener('submit', async function(e) {
-        e.preventDefault(); // Prevent the default form submission behavior
+    var form = document.getElementById('searchForm');
+    if (form)
+        {
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault(); // Prevent the default form submission behavior
+                
+                const searchResults = document.querySelectorAll('.searchresult');
         
-        const searchResults = document.querySelectorAll('.searchresult');
-
-        // Loop through each element and set its display to 'none'
-        searchResults.forEach(element => {
-            element.style.display = 'none';
-        });
-        // Get input values
-        var nameInput = document.getElementById('name').value.trim();
-        var licenseInput = document.getElementById('license').value.trim();
-
-        // Get message div
-        var messageDiv = document.getElementById('message');
+                // Loop through each element and set its display to 'none'
+                searchResults.forEach(element => {
+                    element.style.display = 'none';
+                });
+                // Get input values
+                var nameInput = document.getElementById('name').value.trim();
+                var licenseInput = document.getElementById('license').value.trim();
         
-        // Check if both fields are empty
-        if (nameInput === '' && licenseInput === '') {
-            messageDiv.textContent = 'Error, both fields empty';
+                // Get message div
+                var messageDiv = document.getElementById('message');
+                
+                // Check if both fields are empty
+                if (nameInput === '' && licenseInput === '') {
+                    messageDiv.textContent = 'Error, both fields empty';
+                }
+                // Check if both fields are filled
+                else if (nameInput !== '' && licenseInput !== '') {
+                    messageDiv.textContent = 'Error, you can only search one attribute at a time';
+                }
+                // Search database if only one input
+                else {
+                    if (nameInput !== ''){
+                        fetchDataName(nameInput);
+                    }
+                    else {
+                        fetchDataLicense(licenseInput);
+                    }
+                }
+            });
         }
-        // Check if both fields are filled
-        else if (nameInput !== '' && licenseInput !== '') {
-            messageDiv.textContent = 'Error, you can only search one attribute at a time';
-        }
-        // Search database if only one input
-        else {
-            if (nameInput !== ''){
-                fetchDataName(nameInput);
-            }
-            else {
-                fetchDataLicense(licenseInput);
-            }
-        }
-    });
 });
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('searchForm2').addEventListener('submit', async function(e) {
-        e.preventDefault(); // Prevent the default form submission behavior
+    var form = document.getElementById('searchForm2');
+    if(form){
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault(); // Prevent the default form submission behavior
+            
+            const searchResults = document.querySelectorAll('.searchresult');
         
-        const searchResults = document.querySelectorAll('.searchresult');
-    
-        // Loop through each element and set its display to 'none'
-        searchResults.forEach(element => {
-            element.style.display = 'none';
+            // Loop through each element and set its display to 'none'
+            searchResults.forEach(element => {
+                element.style.display = 'none';
+            });
+            // Get input values
+            var regoInput = document.getElementById('rego').value.trim();
+        
+            // Get message div
+            var messageDiv = document.getElementById('message2');
+            
+            // Check if both fields are empty
+            if (regoInput === '') { // <-- Fixed condition to use regoInput
+                messageDiv.textContent = 'Error, field empty';
+            }
+            // Search database if only one input
+            else {
+                fetchDataRego(regoInput);
+            }
         });
-        // Get input values
-        var regoInput = document.getElementById('rego').value.trim();
-    
-        // Get message div
-        var messageDiv = document.getElementById('message2');
-        
-        // Check if both fields are empty
-        if (regoInput === '') { // <-- Fixed condition to use regoInput
-            messageDiv.textContent = 'Error, field empty';
-        }
-        // Search database if only one input
-        else {
-            fetchDataRego(regoInput);
-        }
-    });
+    }
 });
