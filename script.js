@@ -12,23 +12,6 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Error fetching data:', error.message);
         }
         else{
-            produceOutput(data);
-        }
-    }
-    async function fetchDataLicense(inputData) {
-        const { data, error } = await supabase
-        .from('People')
-        .select()
-        .ilike('LicenseNumber', inputData); // Fixed variable name here
-        if (error) {
-            console.error('Error fetching data:', error.message);
-        }
-        else{
-            produceOutput(data);
-        }
-    }
-
-    async function produceOutput(data){
             if (data.length === 0) {
                 document.getElementById('message').innerText = 'No result found';
                 return;
@@ -54,6 +37,43 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Append the new div to the results container
                 document.getElementById('results').appendChild(newDiv);
             });
+        }
+    }
+    async function fetchDataLicense(inputData) {
+        const { data, error } = await supabase
+        .from('People')
+        .select()
+        .ilike('LicenseNumber', inputData); // Fixed variable name here
+        if (error) {
+            console.error('Error fetching data:', error.message);
+        }
+        else{
+            if (data.length === 0) {
+                document.getElementById('message').innerText = 'No result found';
+                return;
+            }
+    
+            // Clear previous results
+            document.getElementById('message').innerText = 'Search successful';
+    
+            // Iterate over each row in the data
+            data.forEach(row => {
+                // Create a new div for each row
+                const newDiv = document.createElement('div');
+                newDiv.classList.add('box');
+    
+                // Create paragraphs for each column
+                const columns = ['personid', 'name', 'address', 'dob', 'licensenumber', 'expirydate'];
+                columns.forEach(column => {
+                    const p = document.createElement('p');
+                    p.innerHTML = `<strong>${column}: </strong>${row[column]}`;
+                    newDiv.appendChild(p);
+                });
+    
+                // Append the new div to the results container
+                document.getElementById('results').appendChild(newDiv);
+            });
+        }
     }
 
     document.getElementById('searchForm').addEventListener('submit', async function(e) {
