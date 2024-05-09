@@ -183,9 +183,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         // Search database if only one input
         else {
-            if (nameInput !== ''){
-                fetchDataRego(regoInput);
-            }
+            fetchDataRego(regoInput);
         }
     });
 });
