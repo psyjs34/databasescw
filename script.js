@@ -3,17 +3,22 @@ const supabase = createClient('https://olezxgvjwaapmpvuuxhx.supabase.co', 'eyJhb
 
 document.addEventListener('DOMContentLoaded', function() {
 
-    async function fetchData(inputData, type) {
-        if (type === 1){
-            var input = 'LicenseNumber';
-        }
-        else{
-            var input = 'Name';
-        }
+    async function fetchDataName(inputData) {
         const { data, error } = await supabase
         .from('People')
         .select()
-        .ilike(input, inputData); // Fixed variable name here
+        .ilike('Name', inputData); // Fixed variable name here
+        produceOutput(data);
+    }
+    async function fetchDataLicense(inputData) {
+        const { data, error } = await supabase
+        .from('People')
+        .select()
+        .ilike('LicenseNumber', inputData); // Fixed variable name here
+        produceOutput(data);
+    }
+
+    async function produceOutput(data){
         if (error) {
             console.error('Error fetching data:', error.message);
             return;
@@ -68,10 +73,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // Search database if only one input
         else {
             if (nameInput !== ''){
-                fetchData(nameInput, 2); // Fixed function call here
+                fetchDataName(nameInput);
             }
             else {
-                fetchData(licenseInput, 1); // Fixed function call here
+                fetchDataLicense(licenseInput);
             }
         }
     });
