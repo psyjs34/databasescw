@@ -21,22 +21,24 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('message').innerText = 'Search successful';
     
             // Iterate over each row in the data
-            data.forEach(row => {
+            for (var i = 0; i < data.length; i++) {
                 // Create a new div for each row
                 const newDiv = document.createElement('div');
                 newDiv.classList.add('box');
-    
+            
                 // Create paragraphs for each column
                 const columns = ['personid', 'name', 'address', 'dob', 'licensenumber', 'expirydate'];
-                columns.forEach(column => {
+                const columnsVars = ['PersonID', 'Name', 'Address', 'DOB', 'LicenseNumber', 'ExpiryDate'];
+                columns.forEach((column, index) => {
+                    var element = data[i][columnsVars[index]]; // Access each attribute using bracket notation
                     const p = document.createElement('p');
-                    p.innerHTML = `<strong>${column}: </strong>${data[row].column}`;
+                    p.innerHTML = `<strong>${column}: </strong>${element}`;
                     newDiv.appendChild(p);
                 });
-    
+            
                 // Append the new div to the results container
                 document.getElementById('results').appendChild(newDiv);
-            });
+            }
         }
     }
     async function fetchDataLicense(inputData) {
@@ -56,23 +58,24 @@ document.addEventListener('DOMContentLoaded', function() {
             // Clear previous results
             document.getElementById('message').innerText = 'Search successful';
     
-            // Iterate over each row in the data
-            data.forEach(row => {
+            for (var i = 0; i < data.length; i++) {
                 // Create a new div for each row
                 const newDiv = document.createElement('div');
                 newDiv.classList.add('box');
-    
+            
                 // Create paragraphs for each column
                 const columns = ['personid', 'name', 'address', 'dob', 'licensenumber', 'expirydate'];
-                columns.forEach(column => {
+                const columnsVars = ['PersonID', 'Name', 'Address', 'DOB', 'LicenseNumber', 'ExpiryDate'];
+                columns.forEach((column, index) => {
+                    var element = data[i][columnsVars[index]]; // Access each attribute using bracket notation
                     const p = document.createElement('p');
-                    p.innerHTML = `<strong>${column}: </strong>${data[row].column}`;
+                    p.innerHTML = `<strong>${column}: </strong>${element}`;
                     newDiv.appendChild(p);
                 });
-    
+            
                 // Append the new div to the results container
                 document.getElementById('results').appendChild(newDiv);
-            });
+            }
         }
     }
 
