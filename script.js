@@ -95,10 +95,11 @@ const supabase = createClient('https://olezxgvjwaapmpvuuxhx.supabase.co', 'eyJhb
     
             for (var i = 0; i < data.length; i++) {
                 // Create a new div for each row
+                var testVAR = data[i].OwnerID;
                 const { data2, error } = await supabase
                 .from('People')
                 .select()
-                .eq('PersonID', `%${data[i].OwnerID}%`); // Fixed variable name here
+                .eq('PersonID', `%${testVAR}%`); // Fixed variable name here
                 const newDiv = document.createElement('div');
                 newDiv.classList.add('searchresult');
             
