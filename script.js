@@ -45,6 +45,7 @@ async function processData(data) {
         document.getElementById('results').appendChild(newDiv);
     });
 }
+
 document.getElementById('searchForm').addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent the default form submission behavior
     
@@ -60,9 +61,9 @@ document.getElementById('searchForm').addEventListener('submit', function(event)
 
     // Get message div
     var messageDiv = document.getElementById('message');
-
+    messageDiv.textContent = 'GAYYY';
     // Check if both fields are empty
-    if (nameInput === '' && licenseInput === '') {
+    /*if (nameInput === '' && licenseInput === '') {
         messageDiv.textContent = 'Error, both fields empty';
     }
     // Check if both fields are filled
@@ -77,6 +78,6 @@ document.getElementById('searchForm').addEventListener('submit', function(event)
         else{
             fetchData(nameInput);
         }
-    }
+    }*/
 });
 });
