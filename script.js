@@ -122,7 +122,7 @@ const supabase = createClient('https://olezxgvjwaapmpvuuxhx.supabase.co', 'eyJhb
             const { data, error } = await supabase
                 .from('People')
                 .select()
-                .eq(`${searchField}`, `${searchItem}`) 
+                .eq('PersonID', `${searchItem}`) 
             // Extract the search result from the data
             if(error){
                 console.error('Error fetching data:', error.message);
