@@ -105,8 +105,10 @@ const supabase = createClient('https://olezxgvjwaapmpvuuxhx.supabase.co', 'eyJhb
             });
             // Create a new div for each row
             const testVAR = data[0]['OwnerID'];
-            const ownername = searchDatabase('PersonID', testVAR);
-            const ownerlicense = searchDatabase('LicenseNumber', testVAR);
+            const ownernamePromise = searchDatabase('PersonID', testVAR);
+            const ownerlicensePromise = searchDatabase('LicenseNumber', testVAR);
+            const ownername = await ownernamePromise;
+            const ownerlicense = await ownerlicensePromise;
             const p = document.createElement('p');
             p.innerHTML = `<strong>ownername: </strong>${ownername}`;
             newDiv.appendChild(p);
@@ -123,12 +125,14 @@ const supabase = createClient('https://olezxgvjwaapmpvuuxhx.supabase.co', 'eyJhb
                 .from('People')
                 .select()
                 .eq('PersonID', `${searchItem}`) 
+                .single();
+
             // Extract the search result from the data
             if(error){
                 console.error('Error fetching data:', error.message);
                 return null;
             }
-            const searchResult = data[0][searchField];
+            const searchResult = data[searchField];
             return searchResult;
     }
 
