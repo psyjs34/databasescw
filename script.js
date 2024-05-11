@@ -127,7 +127,7 @@ const supabase = createClient('https://olezxgvjwaapmpvuuxhx.supabase.co', 'eyJhb
                     newDiv.appendChild(d);  
             }
             else {
-                console.error('Error fetching data:', error.message);
+                console.error('Error fetching data:', error2.message);
             }
             document.getElementById('results').appendChild(newDiv);
         }
