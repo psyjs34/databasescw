@@ -191,7 +191,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const model = document.getElementById('model').value.trim();
     const colour = document.getElementById('colour').value.trim();
     const owner = document.getElementById('owner').value.trim();
-    if(!rego || !make || !model || !colour || !owner){
+    if(!rego || !make || !model || !colour){
         document.getElementById('message4').innerText = 'Please make sure all fields are filled in, or leave owner blank to add a new owner';
         return;
     }
