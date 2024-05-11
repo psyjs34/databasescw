@@ -105,8 +105,8 @@ const supabase = createClient('https://olezxgvjwaapmpvuuxhx.supabase.co', 'eyJhb
             });
             // Create a new div for each row
             const testVAR = data[0]['OwnerID'];
-            const ownername = searchDatabase("PersonID", testVAR);
-            const ownerlicense = searchDatabase("LicenseNumber", testVAR);
+            const ownername = searchDatabase('PersonID', testVAR);
+            const ownerlicense = searchDatabase('LicenseNumber', testVAR);
             const p = document.createElement('p');
             p.innerHTML = `<strong>ownername: </strong>${ownername}`;
             newDiv.appendChild(p);
@@ -122,16 +122,15 @@ const supabase = createClient('https://olezxgvjwaapmpvuuxhx.supabase.co', 'eyJhb
             // Perform the database query based on the search field and item
             const { data, error } = await supabase
                 .from('People')
-                .select(searchField)
-                .eq(searchField, searchItem)
-                .query({ apikey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9sZXp4Z3Zqd2FhcG1wdnV1eGh4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTUyNjQ0ODEsImV4cCI6MjAzMDg0MDQ4MX0.QhebJQ6x66GSbZ9xK4LHU32R-zLAwdd_KCBYInZlfys'});
+                .select()
+                .eq(`${searchField}`, `${searchItem}`)
 
             if (error) {
                 throw new Error('Error fetching data from database');
             }
     
             // Extract the search result from the data
-            const searchResult = data[searchField];
+            const searchResult = data[searchField][searchItem];
     
             return searchResult;
         } catch (error) {
