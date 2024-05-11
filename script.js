@@ -91,42 +91,41 @@ const supabase = createClient('https://olezxgvjwaapmpvuuxhx.supabase.co', 'eyJhb
             }
     
             // Clear previous results
-            document.getElementById('message2').innerText = 'Search successful';
-    
-            for (var i = 0; i < data.length; i++) {
-                // Create a new div for each row
-                var testVAR = data[i].OwnerID;
-                const { data2, error } = await supabase
-                .from('People')
-                .select()
-                .eq('PersonID', `%${testVAR}%`); // Fixed variable name here
-                const newDiv = document.createElement('div');
-                newDiv.classList.add('searchresult');
-            
-                // Create paragraphs for each column
-                const columns = ['vehicleid', 'make', 'model', 'colour', 'ownerid'];
-                const columnsVars = ['VehicleID', 'Make', 'Model', 'Colour', 'OwnerID'];
-                columns.forEach((column, index) => {
-                    var element = data[i][columnsVars[index]]; // Access each attribute using bracket notation
-                    const p = document.createElement('p');
-                    p.innerHTML = `<strong>${column}: </strong>${element}`;
-                    newDiv.appendChild(p);
-                });
-                if(!error){
+            const newDiv = document.createElement('div');
+            newDiv.classList.add('searchresult');
+            // Create paragraphs for each column
+            const columns = ['vehicleid', 'make', 'model', 'colour', 'ownerid'];
+            const columnsVars = ['VehicleID', 'Make', 'Model', 'Colour', 'OwnerID'];
+            columns.forEach((column, index) => {
+                var element = data[0][columnsVars[index]]; // Access each attribute using bracket notation
+                const p = document.createElement('p');
+                p.innerHTML = `<strong>${column}: </strong>${element}`;
+                newDiv.appendChild(p);
+            });
+            // Create a new div for each row
+            var testVAR = data[0].OwnerID;
+            const { data2, error } = await supabase
+            .from('People')
+            .select()
+            .eq('PersonID', `%${testVAR}%`); // Fixed variable name here
+            if(!error){
                 if(data2.length !== 0){
-                    ownername = data2[0].Name;
-                    ownerlicense = data2[0].LicenseNumber;
+                    var ownername = data2[0].Name;
+                    var ownerlicense = data2[0].LicenseNumber;
+                }
+                else{
+                    ownername = 'Null';
+                    ownerlicense = 'Null';
+                }      
+                const p = document.createElement('p');
                     p.innerHTML = `<strong>ownername: </strong>${ownername}`;
                     newDiv.appendChild(p);
-                    const p = document.createElement('p');
-                    p.innerHTML = `<strong>$ownerlicensenumber: </strong>${ownerlicense}`;
-                }
-            }
-                newDiv.appendChild(p);
-            
+                    const d = document.createElement('p');
+                    d.innerHTML = `<strong>ownerlicensenumber: </strong>${ownerlicense}`;
+                    newDiv.appendChild(d);  
                 // Append the new div to the results container
-                document.getElementById('results').appendChild(newDiv);
             }
+            document.getElementById('results').appendChild(newDiv);
         }
     }
 
