@@ -28,7 +28,7 @@
     <main>
       <div class="mainupper">
         <br>
-        <form id="vehicleForm">
+        <form id="vehicleADDForm">
           <label for="rego">Registration/Plate Number:</label>
           <input type="text" id="rego" name="rego"><br><br>
   
@@ -44,7 +44,7 @@
           <label for="owner">Owner:</label>
           <input type="text" id="owner" name="owner"><br><br>
   
-          <button type="button" onclick="addVehicle()">Add</button>
+          <button type="button" id="formButton3">Add</button>
       </form>
       <br><br>
       <form id="newOwnerForm">
@@ -66,7 +66,7 @@
         <label for="expire">License Expiry Date:</label>
         <input type="text" id="expire" name="expire"><br><br>
 
-        <button type="button" onclick="saveOwner()">Add Owner</button>
+        <button type="button" id="formButton4">Add Owner</button>
         <br><br>
     </form>
     <div id="message">This is the result</div>
