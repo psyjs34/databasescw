@@ -118,13 +118,16 @@ const supabase = createClient('https://olezxgvjwaapmpvuuxhx.supabase.co', 'eyJhb
                     ownername = 'Null';
                     ownerlicense = 'Null';
                 }      
+                // Append the new div to the results container
                 const p = document.createElement('p');
                     p.innerHTML = `<strong>ownername: </strong>${ownername}`;
                     newDiv.appendChild(p);
                     const d = document.createElement('p');
                     d.innerHTML = `<strong>ownerlicensenumber: </strong>${ownerlicense}`;
                     newDiv.appendChild(d);  
-                // Append the new div to the results container
+            }
+            else {
+                console.error('Error fetching data:', error.message);
             }
             document.getElementById('results').appendChild(newDiv);
         }
