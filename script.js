@@ -105,7 +105,7 @@ const supabase = createClient('https://olezxgvjwaapmpvuuxhx.supabase.co', 'eyJhb
             });
             // Create a new div for each row
             const testVAR = data[0]['OwnerID'];
-            const ownernamePromise = searchDatabase('PersonID', testVAR);
+            const ownernamePromise = searchDatabase('Name', testVAR);
             const ownerlicensePromise = searchDatabase('LicenseNumber', testVAR);
             const ownername = await ownernamePromise;
             const ownerlicense = await ownerlicensePromise;
