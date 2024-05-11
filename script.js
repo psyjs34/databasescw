@@ -179,9 +179,11 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    var form = document.getElementById('formButton3');
-    if(form){
-    form.addEventListener('click', async function(event) { 
+
+    var form = document.getElementById('vehicleADDForm');
+    if (form)
+        {
+            form.addEventListener('submit', async function(event) {
     event.preventDefault(); // Prevent default form submission
 
     const rego = document.getElementById('rego').value.trim();
@@ -220,9 +222,11 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    var form = document.getElementById('formButton4');
-    if(form){
-    form.addEventListener('click', async function() {
+
+    var form = document.getElementById('newOwnerForm');
+    if (form)
+        {
+            form.addEventListener('submit', async function() {
     const name = document.getElementById('name').value.trim();
     const address = document.getElementById('address').value.trim();
     const dob = document.getElementById('dob').value.trim();
