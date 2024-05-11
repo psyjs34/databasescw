@@ -91,6 +91,7 @@ const supabase = createClient('https://olezxgvjwaapmpvuuxhx.supabase.co', 'eyJhb
             }
     
             // Clear previous results
+            document.getElementById('message2').innerText = 'Search successful';
             const newDiv = document.createElement('div');
             newDiv.classList.add('searchresult');
             // Create paragraphs for each column
@@ -103,15 +104,15 @@ const supabase = createClient('https://olezxgvjwaapmpvuuxhx.supabase.co', 'eyJhb
                 newDiv.appendChild(p);
             });
             // Create a new div for each row
-            var testVAR = data[0].OwnerID;
-            const { data2, error } = await supabase
+            var testVAR = data[0]['OwnerID'];
+            const { data2, error2 } = await supabase
             .from('People')
             .select()
-            .eq('PersonID', `%${testVAR}%`); // Fixed variable name here
-            if(!error){
+            .eq('PersonID', `${testVAR}`); // Fixed variable name here
+            if(!error2){
                 if(data2.length !== 0){
-                    var ownername = data2[0].Name;
-                    var ownerlicense = data2[0].LicenseNumber;
+                    var ownername = data2[0]['Name'];
+                    var ownerlicense = data2[0]['LicenseNumber'];
                 }
                 else{
                     ownername = 'Null';
