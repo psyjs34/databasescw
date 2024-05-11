@@ -130,7 +130,7 @@ const supabase = createClient('https://olezxgvjwaapmpvuuxhx.supabase.co', 'eyJhb
             }
     
             // Extract the search result from the data
-            const searchResult = data[searchField][searchItem];
+            const searchResult = data[0][searchField];
     
             return searchResult;
         } catch (error) {
