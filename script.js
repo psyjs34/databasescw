@@ -178,10 +178,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 });
 
-document.getElementById('formButton3').addEventListener('click', async function(event) {
-
+document.addEventListener('DOMContentLoaded', function() {
     var form = document.getElementById('formButton3');
-    if(form){    
+    if(form){
+    form.addEventListener('click', async function(event) { 
     event.preventDefault(); // Prevent default form submission
 
     const rego = document.getElementById('rego').value.trim();
@@ -215,13 +215,14 @@ document.getElementById('formButton3').addEventListener('click', async function(
         // If owner exists, add the vehicle directly
         await addVehicle(rego, make, model, colour, ownerData[0].personid);
     }
-}
+});
+    }
 });
 
-
-document.getElementById('formButton4').addEventListener('click', async function() {
-    var form = document.getElementById('searchButton4');
+document.addEventListener('DOMContentLoaded', function() {
+    var form = document.getElementById('formButton4');
     if(form){
+    form.addEventListener('click', async function() {
     const name = document.getElementById('name').value.trim();
     const address = document.getElementById('address').value.trim();
     const dob = document.getElementById('dob').value.trim();
@@ -249,6 +250,7 @@ document.getElementById('formButton4').addEventListener('click', async function(
 
     // Add the vehicle with the owner's ID
     await addVehicle(rego, make, model, colour, personid);
+    });
 }
 });
 
@@ -265,6 +267,7 @@ async function addVehicle(rego, make, model, colour, ownerid) {
 
     // Optionally, perform any additional actions after adding the vehicle
 }
+
 
 
 
