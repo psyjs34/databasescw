@@ -191,10 +191,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const model = document.getElementById('model').value.trim();
     const colour = document.getElementById('colour').value.trim();
     const owner = document.getElementById('owner').value.trim();
-
+    if(!rego || !make || !model || !colour || !owner){
+        document.getElementById('message4').innerText = 'Please make sure all fields are filled in, or leave owner blank to add a new owner';
+        return;
+    }
     // Check if owner is empty or does not exist
     if (!owner) {
         // Make the addOwner form visible
+        document.getElementById('message4').innerText = 'Please fill this in to add a new owner';
         document.getElementById('newOwnerForm').style.display = 'block';
         return;
     }
@@ -203,7 +207,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const { data: ownerData, error } = await supabase
         .from('People')
         .select()
-        .eq('Name', owner);
+        .eq('Name', `${owner}`)
+        .single();
 
     if (error) {
         console.error('Error checking owner:', error.message);
@@ -213,9 +218,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // If owner does not exist, make the addOwner form visible
     if (ownerData.length === 0) {
         document.getElementById('newOwnerForm').style.display = 'block';
+        document.getElementById('message4').innerText = 'Owner entered does not exist, please enter a new owner';
     } else {
         // If owner exists, add the vehicle directly
-        await addVehicle(rego, make, model, colour, ownerData[0].personid);
+        await addVehicle(rego, make, model, colour, ownerData['PersonID']);
+        document.getElementById('message4').innerText = 'Vehicle added successfully';
     }
 });
     }
@@ -227,24 +234,26 @@ document.addEventListener('DOMContentLoaded', function() {
     if (form)
         {
             form.addEventListener('submit', async function() {
+    const personid = document.getElementById('personid').value.trim();
     const name = document.getElementById('name').value.trim();
     const address = document.getElementById('address').value.trim();
     const dob = document.getElementById('dob').value.trim();
     const license = document.getElementById('license').value.trim();
     const expire = document.getElementById('expire').value.trim();
+    if(!name || !address || !dob || !license || !expire || !personid){
+        document.getElementById('message4').innerText = 'Please make sure all fields are filled in';
+        return;
+    }
 
     // Add the new owner to the person table
     const { data, error } = await supabase
         .from('People')
-        .insert([{ name, address, dob, license, expire }]);
+        .insert([{ personid, name, address, dob, license, expire }]);
 
     if (error) {
         console.error('Error adding owner:', error.message);
         return;
     }
-
-    // Get the newly inserted owner's ID
-    const personid = data[0].id;
 
     // Get vehicle details
     const rego = document.getElementById('rego').value.trim();
@@ -255,6 +264,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add the vehicle with the owner's ID
     await addVehicle(rego, make, model, colour, personid);
     });
+    document.getElementById('message4').innerText = 'Vehicle added successfully';
 }
 });
 
