@@ -118,25 +118,18 @@ const supabase = createClient('https://olezxgvjwaapmpvuuxhx.supabase.co', 'eyJhb
     }
 
     async function searchDatabase(searchField, searchItem) {
-        try {
             // Perform the database query based on the search field and item
             const { data, error } = await supabase
                 .from('People')
                 .select()
-                .eq(`${searchField}`, `${searchItem}`)
-
-            if (error) {
-                throw new Error('Error fetching data from database');
-            }
-    
+                .eq(`${searchField}`, `${searchItem}`) 
             // Extract the search result from the data
+            if(error){
+                console.error('Error fetching data:', error.message);
+                return null;
+            }
             const searchResult = data[0][searchField];
-    
             return searchResult;
-        } catch (error) {
-            console.error('Error:', error.message);
-            return null; // Return null if an error occurs
-        }
     }
 
 document.addEventListener('DOMContentLoaded', function() {
