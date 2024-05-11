@@ -80,7 +80,7 @@ const supabase = createClient('https://olezxgvjwaapmpvuuxhx.supabase.co', 'eyJhb
         const { data, error } = await supabase
         .from('Vehicles')
         .select()
-        .ilike('VehicleID', `%${inputData}%`); // Fixed variable name here
+        .eq('VehicleID', `${inputData}`); // Fixed variable name here
         if (error) {
             console.error('Error fetching data:', error.message);
         }
