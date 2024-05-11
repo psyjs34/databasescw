@@ -104,32 +104,39 @@ const supabase = createClient('https://olezxgvjwaapmpvuuxhx.supabase.co', 'eyJhb
                 newDiv.appendChild(p);
             });
             // Create a new div for each row
-            var testVAR = data[0]['OwnerID'];
-            const { data2, error2 } = await supabase
-            .from('People')
-            .select()
-            .eq('PersonID', `${testVAR}`); // Fixed variable name here
-            if(!error2){
-                if(data2.length !== 0){
-                    var ownername = data2[0]['Name'];
-                    var ownerlicense = data2[0]['LicenseNumber'];
-                }
-                else{
-                    ownername = 'Null';
-                    ownerlicense = 'Null';
-                }      
-                // Append the new div to the results container
-                const p = document.createElement('p');
-                    p.innerHTML = `<strong>ownername: </strong>${ownername}`;
-                    newDiv.appendChild(p);
-                    const d = document.createElement('p');
-                    d.innerHTML = `<strong>ownerlicensenumber: </strong>${ownerlicense}`;
-                    newDiv.appendChild(d);  
-            }
-            else {
-                console.error('Error fetching data:', error2.message);
-            }
+            const testVAR = data[0]['OwnerID'];
+            const ownername = searchDatabase("PersonID", testVAR);
+            const ownerlicense = searchDatabase("LicenseNumber", testVAR);
+            const p = document.createElement('p');
+            p.innerHTML = `<strong>ownername: </strong>${ownername}`;
+            newDiv.appendChild(p);
+            const d = document.createElement('p');
+            d.innerHTML = `<strong>ownerlicensenumber: </strong>${ownerlicense}`;
+            newDiv.appendChild(d);  
             document.getElementById('results').appendChild(newDiv);
+        }
+    }
+
+    async function searchDatabase(searchField, searchItem) {
+        try {
+            // Perform the database query based on the search field and item
+            const { data, error } = await supabase
+                .from('People')
+                .select(searchField)
+                .eq(searchField, searchItem)
+                .single(); // Retrieve only a single row
+            
+            if (error) {
+                throw new Error('Error fetching data from database');
+            }
+    
+            // Extract the search result from the data
+            const searchResult = data[searchField];
+    
+            return searchResult;
+        } catch (error) {
+            console.error('Error:', error.message);
+            return null; // Return null if an error occurs
         }
     }
 
