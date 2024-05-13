@@ -190,6 +190,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     } else {
                         await addVehicle(rego, make, model, colour, ownerData[0]['PersonID']);
                         document.getElementById('message4').innerText = 'Vehicle added successfully';
+                        clearFormFields('vehicleADDForm');
                     }
                 }
             }
@@ -238,6 +239,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 await addVehicle(rego, make, model, colour, personid);
                 document.getElementById('message4').innerText = 'Vehicle added successfully';
+                await clearFormFields('vehicleADDForm');
+                await clearFormFields('newOwnerForm');
+                document.getElementById('newOwnerForm').style.display = 'none';
             }
         });
     }
@@ -259,6 +263,16 @@ async function addVehicle(rego, make, model, colour, ownerid) {
     if (error) {
         console.error('Error adding vehicle:', error.message);
         return;
+    }
+}
+
+function clearFormFields(formId) {
+    const form = document.getElementById(formId);
+    if (form) {
+        const inputFields = form.querySelectorAll('input, textarea, select');
+        inputFields.forEach(field => {
+            field.value = '';
+        });
     }
 }
 
