@@ -182,6 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var vehicleForm = document.getElementById('vehicleADDForm');
     if (vehicleForm) {
         vehicleForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
             const rego = document.getElementById('rego').value.trim();
             const make = document.getElementById('make').value.trim();
             const model = document.getElementById('model').value.trim();
@@ -190,7 +191,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (!rego || !make || !model || !colour) {
                 document.getElementById('message4').innerText = 'Please make sure all fields are filled in, or leave owner blank to add a new owner';
-                event.preventDefault();
                 return;
             }
             else{
@@ -199,7 +199,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Make the addOwner form visible
                 document.getElementById('message4').innerText = 'Please fill this in to add a new owner';
                 document.getElementById('newOwnerForm').style.display = 'block';
-                event.preventDefault();
                 return;
             }
             else{
@@ -211,7 +210,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (error) {
                 console.error('Error checking owner:', error.message);
-                event.preventDefault();
                 return;
             }
 
@@ -219,7 +217,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (ownerData.length === 0) {
                 document.getElementById('newOwnerForm').style.display = 'block';
                 document.getElementById('message4').innerText = 'Owner entered does not exist, please enter a new owner';
-                event.preventDefault();
                 return;
             } else {
                 // If owner exists, add the vehicle directly
@@ -234,6 +231,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var ownerForm = document.getElementById('newOwnerForm');
     if (ownerForm) {
         ownerForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
             const personid = document.getElementById('personid').value.trim();
             const name = document.getElementById('name').value.trim();
             const address = document.getElementById('address').value.trim();
@@ -243,7 +241,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (!name || !address || !dob || !license || !expire || !personid) {
                 document.getElementById('message4').innerText = 'Please make sure all fields are filled in';
-                event.preventDefault();
                 return;
             }
             else{
@@ -263,7 +260,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (error) {
                 console.error('Error adding owner:', error.message);
-                event.preventDefault();
                 return;
             }
 
@@ -274,7 +270,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const colour = document.getElementById('colour').value.trim();
             if (!rego || !make || !model || !colour) {
                 document.getElementById('message4').innerText = 'Please make sure all fields are filled in';
-                event.preventDefault();
                 return;
             }
             // Add the vehicle with the owner's ID
