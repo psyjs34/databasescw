@@ -250,28 +250,43 @@ document.addEventListener('DOMContentLoaded', function() {
                     } 
                     else 
                     {
-                        const { error } = await supabase
-                        .from('People')
-                        .insert([
+                        const { data, error } = await supabase
+                        .from('Vehicles')
+                        .select()
+                        .eq('VehicleID', rego);
+                        if (error) {
+                            console.error('Error querying Vehicles table:', error.message);
+                          } else {
+                            if (data.length !== 0) 
                             {
-                                PersonID: personid,
-                                Name: name,
-                                Address: address,
-                                DOB: dob,
-                                LicenseNumber: license,
-                                ExpiryDate: expire
+                                document.getElementById('message').innerText = 'Error, a car with this registration already exists';
+                            } 
+                            else 
+                            {
+                                const { error } = await supabase
+                                .from('People')
+                                .insert([
+                                    {
+                                        PersonID: personid,
+                                        Name: name,
+                                        Address: address,
+                                        DOB: dob,
+                                        LicenseNumber: license,
+                                        ExpiryDate: expire
+                                    }
+                                ]);
+            
+                                if (error)  {
+                                    console.error('Error adding owner:', error.message);
+                                    return;
+                                }
+                                await addVehicle(rego, make, model, colour, personid);
+                                document.getElementById('message').innerText = 'Vehicle added successfully';
+                                await clearFormFields('vehicleADDForm');
+                                await clearFormFields('newOwnerForm');
+                                document.getElementById('newOwnerForm').style.display = 'none';
                             }
-                        ]);
-    
-                        if (error)  {
-                            console.error('Error adding owner:', error.message);
-                            return;
-                        }
-                        await addVehicle(rego, make, model, colour, personid);
-                        document.getElementById('message').innerText = 'Vehicle added successfully';
-                        await clearFormFields('vehicleADDForm');
-                        await clearFormFields('newOwnerForm');
-                        document.getElementById('newOwnerForm').style.display = 'none';
+                          }
                     }
                 }
             }
