@@ -63,18 +63,18 @@ footer, header, aside, main {
 }
 
 footer {
-  grid-row: 3;
+  grid-row: 3; /* Place the footer in the third row */
 }
 
 aside {
-  grid-row: 2;
+  grid-row: 2; /* Place the sidebar in the second row */
 }
 
 main {
     display: flex;
     flex-direction: column;
-  grid-row: 2;
-  grid-column: 2;
+  grid-row: 2; /* Place the main content in the second row */
+  grid-column: 2; /* Place the main content in the second column */
 }
 
 .navigation {
@@ -102,7 +102,7 @@ ul.navigation {
         flex-direction: column;
     }
     aside {
-      grid-row: 3;
+      grid-row: 3; /* Place the sidebar in the second row */
     }
     footer {
       grid-column: 2;
