@@ -38,7 +38,7 @@ async function fetchDataLicense(inputData) {
     const { data, error } = await supabase
         .from('People')
         .select()
-        .eq('LicenseNumber', `%${inputData}%`);
+        .ilike('LicenseNumber', `%${inputData}%`);
     if (error) {
         console.error('Error fetching data:', error.message);
     } else {
