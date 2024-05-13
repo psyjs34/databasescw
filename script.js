@@ -76,11 +76,11 @@ async function fetchDataRego(inputData) {
         console.error('Error fetching data:', error.message);
     } else {
         if (data.length === 0) {
-            document.getElementById('message2').innerText = 'No result found';
+            document.getElementById('message').innerText = 'No result found';
             return;
         }
 
-        document.getElementById('message2').innerText = 'Search successful';
+        document.getElementById('message').innerText = 'Search successful';
         const newDiv = document.createElement('div');
         newDiv.classList.add('searchresult');
 
@@ -165,11 +165,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const owner = document.getElementById('owner').value.trim();
 
             if (!rego || !make || !model || !colour) {
-                document.getElementById('message4').innerText = 'Please make sure all fields are filled in, or leave owner blank to add a new owner';
+                document.getElementById('message').innerText = 'Please make sure all fields are filled in, or leave owner blank to add a new owner';
                 return;
             } else {
                 if (!owner) {
-                    document.getElementById('message4').innerText = 'Please fill this in to add a new owner';
+                    document.getElementById('message').innerText = 'Please fill this in to add a new owner';
                     document.getElementById('newOwnerForm').style.display = 'block';
                     return;
                 } else {
@@ -185,11 +185,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     if (ownerData.length === 0) {
                         document.getElementById('newOwnerForm').style.display = 'block';
-                        document.getElementById('message4').innerText = 'Owner entered does not exist, please enter a new owner';
+                        document.getElementById('message').innerText = 'Owner entered does not exist, please enter a new owner';
                         return;
                     } else {
                         await addVehicle(rego, make, model, colour, ownerData[0]['PersonID']);
-                        document.getElementById('message4').innerText = 'Vehicle added successfully';
+                        document.getElementById('message').innerText = 'Vehicle added successfully';
                         clearFormFields('vehicleADDForm');
                     }
                 }
@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const expire = document.getElementById('expire').value.trim();
 
             if (!name || !address || !dob || !license || !expire || !personid) {
-                document.getElementById('message4').innerText = 'Please make sure all fields are filled in';
+                document.getElementById('message').innerText = 'Please make sure all fields are filled in';
                 return;
             } else {
                 const rego = document.getElementById('rego').value.trim();
@@ -217,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const model = document.getElementById('model').value.trim();
                 const colour = document.getElementById('colour').value.trim();
                 if (!rego || !make || !model || !colour) {
-                    document.getElementById('message4').innerText = 'Please make sure all fields are filled in';
+                    document.getElementById('message').innerText = 'Please make sure all fields are filled in';
                     return;
                 }
                 const { error } = await supabase
@@ -238,7 +238,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     return;
                 }
                 await addVehicle(rego, make, model, colour, personid);
-                document.getElementById('message4').innerText = 'Vehicle added successfully';
+                document.getElementById('message').innerText = 'Vehicle added successfully';
                 await clearFormFields('vehicleADDForm');
                 await clearFormFields('newOwnerForm');
                 document.getElementById('newOwnerForm').style.display = 'none';
@@ -289,7 +289,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             var regoInput = document.getElementById('rego').value.trim();
         
-            var messageDiv = document.getElementById('message2');
+            var messageDiv = document.getElementById('message');
             
             if (regoInput === '') {
                 messageDiv.textContent = 'Error, field empty';
