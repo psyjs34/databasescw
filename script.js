@@ -182,7 +182,6 @@ document.addEventListener('DOMContentLoaded', function() {
     var vehicleForm = document.getElementById('vehicleADDForm');
     if (vehicleForm) {
         vehicleForm.addEventListener('submit', async function(event) {
-            event.preventDefault(); // Prevent default form submission
             const rego = document.getElementById('rego').value.trim();
             const make = document.getElementById('make').value.trim();
             const model = document.getElementById('model').value.trim();
@@ -191,17 +190,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (!rego || !make || !model || !colour) {
                 document.getElementById('message4').innerText = 'Please make sure all fields are filled in, or leave owner blank to add a new owner';
-                return;
+                event.preventDefault();
             }
-
+            else{
             // Check if owner is empty or does not exist
             if (!owner) {
                 // Make the addOwner form visible
                 document.getElementById('message4').innerText = 'Please fill this in to add a new owner';
                 document.getElementById('newOwnerForm').style.display = 'block';
-                return;
+                event.preventDefault();
             }
-
+            else{
             // Query the database to check if owner exists
             const { data: ownerData, error } = await supabase
                 .from('People')
@@ -210,6 +209,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (error) {
                 console.error('Error checking owner:', error.message);
+                event.preventDefault();
                 return;
             }
 
@@ -217,11 +217,14 @@ document.addEventListener('DOMContentLoaded', function() {
             if (ownerData.length === 0) {
                 document.getElementById('newOwnerForm').style.display = 'block';
                 document.getElementById('message4').innerText = 'Owner entered does not exist, please enter a new owner';
+                event.preventDefault();
             } else {
                 // If owner exists, add the vehicle directly
                 await addVehicle(rego, make, model, colour, ownerData[0]['PersonID']);
                 document.getElementById('message4').innerText = 'Vehicle added successfully';
             }
+        }
+        }
         });
     }
 
@@ -256,6 +259,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (error) {
                 console.error('Error adding owner:', error.message);
+                event.preventDefault();
                 return;
             }
 
@@ -264,7 +268,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const make = document.getElementById('make').value.trim();
             const model = document.getElementById('model').value.trim();
             const colour = document.getElementById('colour').value.trim();
-
+            if (!rego || !make || !model || !colour) {
+                document.getElementById('message4').innerText = 'Please make sure all fields are filled in, or leave owner blank to add a new owner';
+                event.preventDefault();
+            }
             // Add the vehicle with the owner's ID
             await addVehicle(rego, make, model, colour, personid);
             document.getElementById('message4').innerText = 'Vehicle added successfully';
