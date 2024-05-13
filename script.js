@@ -227,7 +227,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var ownerForm = document.getElementById('newOwnerForm');
     if (ownerForm) {
-        ownerForm.addEventListener('submit', async function() {
+        ownerForm.addEventListener('submit', async function(event) {
             const personid = document.getElementById('personid').value.trim();
             const name = document.getElementById('name').value.trim();
             const address = document.getElementById('address').value.trim();
@@ -237,6 +237,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (!name || !address || !dob || !license || !expire || !personid) {
                 document.getElementById('message4').innerText = 'Please make sure all fields are filled in';
+                event.preventDefault();
                 return;
             }
 
