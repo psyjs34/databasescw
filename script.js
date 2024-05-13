@@ -206,8 +206,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const { data: ownerData, error } = await supabase
                 .from('People')
                 .select()
-                .eq('Name', owner)
-                .single();
+                .eq('Name', owner);
 
             if (error) {
                 console.error('Error checking owner:', error.message);
@@ -220,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('message4').innerText = 'Owner entered does not exist, please enter a new owner';
             } else {
                 // If owner exists, add the vehicle directly
-                await addVehicle(rego, make, model, colour, ownerData['PersonID']);
+                await addVehicle(rego, make, model, colour, ownerData[0]['PersonID']);
                 document.getElementById('message4').innerText = 'Vehicle added successfully';
             }
         });
