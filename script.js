@@ -228,8 +228,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var ownerForm = document.getElementById('newOwnerForm');
     if (ownerForm) {
-        ownerForm.addEventListener('submit', async function(event) {
-            event.preventDefault(); // Prevent default form submission
+        ownerForm.addEventListener('submit', async function() {
             const personid = document.getElementById('personid').value.trim();
             const name = document.getElementById('name').value.trim();
             const address = document.getElementById('address').value.trim();
@@ -258,6 +257,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (error) {
                 console.error('Error adding owner:', error.message);
+                return;
             }
 
             // Get vehicle details
