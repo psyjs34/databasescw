@@ -228,6 +228,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var ownerForm = document.getElementById('newOwnerForm');
     if (ownerForm) {
         ownerForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
             const personid = document.getElementById('personid').value.trim();
             const name = document.getElementById('name').value.trim();
             const address = document.getElementById('address').value.trim();
@@ -237,10 +238,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (!name || !address || !dob || !license || !expire || !personid) {
                 document.getElementById('message4').innerText = 'Please make sure all fields are filled in';
-                event.preventDefault();
-                return;
             }
-
+            else{
             // Add the new owner to the person table
             const { error } = await supabase
             .from('People')
@@ -269,6 +268,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Add the vehicle with the owner's ID
             await addVehicle(rego, make, model, colour, personid);
             document.getElementById('message4').innerText = 'Vehicle added successfully';
+            }
         });
     }
 });
