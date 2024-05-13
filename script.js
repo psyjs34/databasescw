@@ -191,6 +191,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!rego || !make || !model || !colour) {
                 document.getElementById('message4').innerText = 'Please make sure all fields are filled in, or leave owner blank to add a new owner';
                 event.preventDefault();
+                return;
             }
             else{
             // Check if owner is empty or does not exist
@@ -199,6 +200,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('message4').innerText = 'Please fill this in to add a new owner';
                 document.getElementById('newOwnerForm').style.display = 'block';
                 event.preventDefault();
+                return;
             }
             else{
             // Query the database to check if owner exists
@@ -218,6 +220,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('newOwnerForm').style.display = 'block';
                 document.getElementById('message4').innerText = 'Owner entered does not exist, please enter a new owner';
                 event.preventDefault();
+                return;
             } else {
                 // If owner exists, add the vehicle directly
                 await addVehicle(rego, make, model, colour, ownerData[0]['PersonID']);
@@ -241,6 +244,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!name || !address || !dob || !license || !expire || !personid) {
                 document.getElementById('message4').innerText = 'Please make sure all fields are filled in';
                 event.preventDefault();
+                return;
             }
             else{
             // Add the new owner to the person table
@@ -269,8 +273,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const model = document.getElementById('model').value.trim();
             const colour = document.getElementById('colour').value.trim();
             if (!rego || !make || !model || !colour) {
-                document.getElementById('message4').innerText = 'Please make sure all fields are filled in, or leave owner blank to add a new owner';
+                document.getElementById('message4').innerText = 'Please make sure all fields are filled in';
                 event.preventDefault();
+                return;
             }
             // Add the vehicle with the owner's ID
             await addVehicle(rego, make, model, colour, personid);
